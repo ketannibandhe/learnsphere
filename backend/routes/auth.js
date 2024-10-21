@@ -14,10 +14,10 @@ router.post('/signup', async (req, res) => {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
-    // Check if the user already exists by email
-    const existingUser = await User.findOne({ email });
+    // Check if the user already exists by username (case insensitive)
+    const existingUser = await User.findOne({ username: new RegExp(`^${username}$`, 'i') });
     if (existingUser) {
-      return res.status(400).json({ error: 'Email is already registered' });
+      return res.status(400).json({ error: 'Username is already taken' });
     }
 
     // Hash the password before saving
@@ -45,8 +45,8 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Check if the user exists
-    const user = await User.findOne({ username });
+    // Check if the user exists (case-insensitive search for username)
+    const user = await User.findOne({ username: new RegExp(`^${username}$`, 'i') });
     if (!user) {
       return res.status(400).json({ error: 'Invalid username or password' });
     }

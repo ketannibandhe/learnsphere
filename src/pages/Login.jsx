@@ -5,7 +5,7 @@ import svg6 from '../../src/assets/svg/svg6.jpeg';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State to store error message
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,52 +18,42 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Clear previous error message
     setError('');
-  
-    // Hardcoded admin credentials for the teachers
+
     const adminCredentials = [
       { username: 'teacher1', password: 'teach123' },
       { username: 'teacher2', password: 'teach456' },
     ];
-  
-    // Check if the username and password match admin credentials
+
     const isAdmin = adminCredentials.some(
       (admin) => admin.username === username && admin.password === password
     );
-  
-    // If the user is an admin, redirect them to the Admin Dashboard
+
     if (isAdmin) {
       navigate('/admin-dashboard', { state: { username } });
-      return; // Stop further execution
+      return;
     }
-  
-    // If not admin, proceed to check with the backend for regular users
+
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/auth/login', { // Corrected endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
-        // If login successful for non-admin users, navigate to courses page
         navigate('/courses', { state: { username } });
       } else {
-        // If login failed, set the error message
-        setError(data.message || 'Invalid username or password');
+        setError(data.error || 'Invalid username or password');
       }
     } catch (error) {
-      // Handle any other errors
       setError('Something went wrong. Please try again later.');
     }
   };
-  
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-[#ffd6ff] to-[#bbd0ff] p-5">
@@ -71,9 +61,7 @@ const Login = () => {
         <div className="lg:w-1/2 flex flex-col justify-center p-6 order-last lg:order-first">
           <h2 className="text-4xl font-bold text-gray-800 text-center mb-8">Login to LearnSphere</h2>
           {error && (
-            <div className="text-red-500 text-center mb-4">
-              {error}
-            </div>
+            <div className="text-red-500 text-center mb-4">{error}</div>
           )}
           <form onSubmit={handleSubmit} className="space-y-6">
             <input

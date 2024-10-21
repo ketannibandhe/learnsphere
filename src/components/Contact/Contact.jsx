@@ -1,11 +1,16 @@
 import React from 'react';
 
+import Footer from '../Footer';
+
 const Contact = () => {
   return (
-    <section className="py-20 bg-[#eef1f7] text-center" id="contact">
+    <div className='w-screen'>
+      
+    
+    <section className="py-20  bg-[#eef1f7] text-center " id="contact">
       <h2 className="text-3xl text-gray-800 mb-10">Ready to Start Learning? Contact Us!</h2>
       <div className="flex justify-center">
-        <form className="w-1/2 bg-white p-10 rounded-lg shadow-md">
+        <form className="w-1/3 bg-white p-10 rounded-lg shadow-md">
           <input
             type="text"
             placeholder="Your Name"
@@ -29,6 +34,8 @@ const Contact = () => {
         </form>
       </div>
     </section>
+    <Footer/>
+    </div>
   );
 };
 

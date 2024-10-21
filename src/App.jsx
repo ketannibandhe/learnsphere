@@ -1,34 +1,38 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import SignUp from './pages/SignUp';
-import Login from './pages/Login';
-import CoursesPage from './pages/CoursesPage';
-import AdminDashboard from './pages/AdminDashboard'; // Import AdminDashboard component
-import NotFound from './pages/NotFound'; // Import a NotFound component for 404 handling
-import './App.css';  // Global styles, if any
+import React, { useState } from "react";
+// import { MessageCircle } from "lucide-react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import MainPage from "./pages/MainPage";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import CoursesPage from "./pages/CoursesPage";
+import PlansPricing from "./pages/PlansPricing";
+import AdminDashboard from "./pages/AdminDashboard";
+import Dashboard from "./pages/dashboard";
+import NotFound from "./pages/NotFound";
+import Contact from "./components/Contact/Contact";
 
 function App() {
+  
+
   return (
     <Router>
-      <div className="App bg-gradient-to-br from-[#ffcbf2] to-[#c8e7ff] min-h-screen">
+      <div className="bg-gradient-to-br from-[#ffcbf2] to-[#c8e7ff] min-h-screen">
         <Routes>
-          {/* Route for the Home Page */}
           <Route path="/" element={<HomePage />} />
-
-          {/* Routes for Sign Up and Login pages */}
+          <Route path="/Main" element={<MainPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-
-          {/* Route for the Courses Page */}
           <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/plans" element={<PlansPricing />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
 
-          {/* Route for the Admin Dashboard */}
-          <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Add Admin Dashboard route */}
-
-          {/* Route for handling 404 errors */}
-          <Route path="*" element={<NotFound />} /> {/* Add NotFound route */}
         </Routes>
+
+        
       </div>
     </Router>
   );

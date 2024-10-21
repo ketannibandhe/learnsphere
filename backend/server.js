@@ -4,8 +4,6 @@ import authRoutes from './routes/auth.js'; // Authentication route
 import cors from 'cors';
 import dotenv from 'dotenv';
 import uploadRoutes from './routes/upload.js'; // File upload routes
-import bcrypt from 'bcryptjs'; // ES Module
-
 
 dotenv.config();
 
@@ -26,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/learners', 
 
 app.use('/api/auth', authRoutes); // Authentication routes
 app.use('/api', uploadRoutes); 
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

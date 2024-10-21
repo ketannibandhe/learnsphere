@@ -35,7 +35,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('/api/auth/login', { // Corrected endpoint
+      const response = await fetch('http://localhost:5000/api/auth/login', { // Corrected endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

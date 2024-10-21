@@ -31,7 +31,7 @@ const Navbar1 = () => {
 
       {/* Right-aligned items */}
       <div className="flex space-x-4">
-        <Link to="/login" className="text-gray-800 no-underline">{username}</Link>
+        <Link to="/profile" className="text-gray-800 no-underline">{username}</Link>
         {/* <Link to="/signup" className="text-gray-800 no-underline">Sign Up</Link> */}
         {/* <button className="px-2 py-1 bg-gray-800 text-white border-none cursor-pointer">
           Dark Mode

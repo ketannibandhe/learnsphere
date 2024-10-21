@@ -4,6 +4,8 @@ import authRoutes from './routes/auth.js'; // Authentication route
 import cors from 'cors';
 import dotenv from 'dotenv';
 import uploadRoutes from './routes/upload.js'; // File upload routes
+import bcrypt from 'bcryptjs'; // ES Module
+
 
 dotenv.config();
 

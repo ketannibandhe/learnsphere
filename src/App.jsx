@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import CoursesPage from './pages/CoursesPage';
+import AdminDashboard from './pages/AdminDashboard'; // Import AdminDashboard component
 import NotFound from './pages/NotFound'; // Import a NotFound component for 404 handling
 import './App.css';  // Global styles, if any
 
@@ -21,6 +22,9 @@ function App() {
 
           {/* Route for the Courses Page */}
           <Route path="/courses" element={<CoursesPage />} />
+
+          {/* Route for the Admin Dashboard */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Add Admin Dashboard route */}
 
           {/* Route for handling 404 errors */}
           <Route path="*" element={<NotFound />} /> {/* Add NotFound route */}

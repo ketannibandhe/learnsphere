@@ -18,11 +18,28 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     // Clear previous error message
     setError('');
-
-    // API call to the backend to check credentials
+  
+    // Hardcoded admin credentials for the teachers
+    const adminCredentials = [
+      { username: 'teacher1', password: 'teach123' },
+      { username: 'teacher2', password: 'teach456' },
+    ];
+  
+    // Check if the username and password match admin credentials
+    const isAdmin = adminCredentials.some(
+      (admin) => admin.username === username && admin.password === password
+    );
+  
+    // If the user is an admin, redirect them to the Admin Dashboard
+    if (isAdmin) {
+      navigate('/admin-dashboard', { state: { username } });
+      return; // Stop further execution
+    }
+  
+    // If not admin, proceed to check with the backend for regular users
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -31,11 +48,11 @@ const Login = () => {
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        // If login successful, navigate to the courses page
+        // If login successful for non-admin users, navigate to courses page
         navigate('/courses', { state: { username } });
       } else {
         // If login failed, set the error message
@@ -46,6 +63,7 @@ const Login = () => {
       setError('Something went wrong. Please try again later.');
     }
   };
+  
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-[#ffd6ff] to-[#bbd0ff] p-5">
@@ -87,4 +105,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

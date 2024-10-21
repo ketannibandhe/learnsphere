@@ -46,9 +46,9 @@ const AdminDashboard = () => {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#ffd6ff] to-[#bbd0ff] p-10">
+    <div className="min-h-screen w-screen pt-12 bg-gradient-to-b from-[#ffd6ff] to-[#bbd0ff] p-10">
       <h1 className="text-5xl font-bold text-center text-gray-800 mb-8">Admin Dashboard</h1>
-      <div className="flex flex-wrap justify-center"> {/* Flex wrap and center the items */}
+      <div className="flex flex-wrap justify-center gap-10"> {/* Flex wrap and center the items */}
         {/* Video Upload Section */}
         <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg m-2 flex-shrink-0"> {/* Flex-shrink to avoid stretching */}
           <h2 className="text-2xl font-bold mb-4">Upload Video</h2>

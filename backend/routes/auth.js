@@ -1,67 +1,55 @@
 import express from 'express';
 import User from '../models/User.js';
-import bcrypt from 'bcrypt';
+// import { verifyToken } from '../middleware/auth.js'; // Ensure you have this middleware to protect routes
 
 const router = express.Router();
 
-// Sign Up Route
+// Sign Up
 router.post('/signup', async (req, res) => {
   const { username, password, email } = req.body;
 
   try {
-    // Check if all fields are provided
-    if (!username || !password || !email) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
-
-    // Check if the user already exists by username (case insensitive)
-    const existingUser = await User.findOne({ username: new RegExp(`^${username}$`, 'i') });
+    // Check if user already exists
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ error: 'Username is already taken' });
+      return res.status(400).json({ error: 'Username already exists' });
     }
 
-    // Hash the password before saving
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create new user instance
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
-    });
-
-    // Save user to the database
+    // No hashing; save the password in plain text (not recommended)
+    const newUser = new User({ username, password, email });
     await newUser.save();
-    
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'User creation failed due to server error' });
+    console.error('Signup Error:', error.message);
+    res.status(400).json({ error: 'User creation failed' });
   }
 });
 
-// Login Route
+// Login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Check if the user exists (case-insensitive search for username)
-    const user = await User.findOne({ username: new RegExp(`^${username}$`, 'i') });
+    const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({ error: 'Invalid username or password' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    // Compare the provided password with the hashed password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ error: 'Invalid username or password' });
+    // Compare the plain text password (no hashing)
+    if (user.password !== password) {
+      return res.status(401).json({ error: 'Invalid password' });
     }
 
     // Successful login
-    res.status(200).json({ message: 'Login successful', username: user.username });
+    res.status(200).json({
+      message: 'Login successful',
+      username: user.username,
+      email: user.email, // Optionally send email or any other details
+    });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Login failed due to server error' });
+    console.error('Login Error:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

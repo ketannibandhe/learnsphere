@@ -35,7 +35,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('/api/auth/login', { // Corrected endpoint
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        navigate('/courses', { state: { username } });
+        navigate('/main', { state: { username } });
       } else {
         setError(data.error || 'Invalid username or password');
       }
@@ -69,7 +69,7 @@ const Login = () => {
               placeholder="Username/Email ID"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
+              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none text-gray-800"
               required
             />
             <input
@@ -77,13 +77,23 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
+              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none text-gray-800"
               required
             />
             <button type="submit" className="bg-[#e7c6ff] text-white py-4 px-6 w-full rounded-full transition duration-300 hover:bg-[#c8b6ff] focus:ring-2 focus:ring-[#c8b6ff] focus:outline-none">
               Login
             </button>
           </form>
+          {/* Sign Up Link */}
+          <div className="mt-4 text-center">
+            <span className="text-gray-600">Not registered? </span>
+            <button 
+              onClick={() => navigate('/signup')} // Redirect to sign up page
+              className="text-dark font-semibold hover:underline border-none focus:outline-none"
+            >
+              Sign up
+            </button>
+          </div>
         </div>
         <div className="lg:w-1/2 flex justify-center p-6 order-first lg:order-last">
           <img src={svg6} alt="Login Illustration" className="w-full h-auto rounded-lg shadow-md" />

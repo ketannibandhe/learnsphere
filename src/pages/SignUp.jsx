@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import svg6 from '../../src/assets/svg/svg6.jpeg';
 
 const SignUp = () => {
@@ -54,7 +55,7 @@ const SignUp = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
+              className="border text-gray-800 border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
               required
             />
             <input
@@ -62,7 +63,7 @@ const SignUp = () => {
               placeholder="Email ID"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
+              className="border text-gray-800 border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
               required
             />
             <input
@@ -70,13 +71,22 @@ const SignUp = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
+              className="border text-gray-800 border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-[#c8b6ff] transition duration-300 focus:outline-none"
               required
             />
             <button type="submit" className="bg-[#e7c6ff] text-white py-4 px-6 w-full rounded-full transition duration-300 hover:bg-[#c8b6ff] focus:ring-2 focus:ring-[#c8b6ff] focus:outline-none">
               Sign Up
             </button>
           </form>
+          {/* Login Link */}
+          <div className="mt-4 text-center">
+            <p className="text-gray-600">
+              Already have an account?{' '}
+              <Link to="/login" className="text-dark font-semibold hover:underline">
+                Log In
+              </Link>
+            </p>
+          </div>
         </div>
         <div className="lg:w-1/2 flex justify-center p-6 order-first lg:order-last">
           <img src={svg6} alt="Signup Illustration" className="w-full h-auto rounded-lg shadow-md" />

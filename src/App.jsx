@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { MessageCircle } from "lucide-react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MainPage from "./pages/MainPage";
@@ -11,9 +10,36 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Dashboard from "./pages/dashboard";
 import NotFound from "./pages/NotFound";
 import Contact from "./components/Contact/Contact";
+import Test from "./pages/test"; // Import Test component
 
 function App() {
-  
+  // Sample test data to pass to the Test component
+  const tests = [
+    {
+      _id: '1',
+      name: 'Sample Test 1',
+      totalQuestions: 3,
+      marksPerQuestion: 1,
+      questions: [
+        {
+          questionText: 'What is 2 + 2?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '4',
+        },
+        {
+          questionText: 'What is the capital of France?',
+          options: ['Berlin', 'Paris', 'Rome', 'Madrid'],
+          correctAnswer: 'Paris',
+        },
+        {
+          questionText: 'What is the square root of 9?',
+          options: ['1', '2', '3', '4'],
+          correctAnswer: '3',
+        },
+      ],
+    },
+    // More tests can be added here
+  ];
 
   return (
     <Router>
@@ -28,11 +54,9 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/tests" element={<Test tests={tests} />} /> {/* Add the Test route */}
           <Route path="*" element={<NotFound />} />
-
         </Routes>
-
-        
       </div>
     </Router>
   );
